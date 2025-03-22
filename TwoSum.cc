@@ -9,6 +9,7 @@ You can return the answer in any order.
 */
 #include <vector>
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
 class Solution {
@@ -38,3 +39,14 @@ class Solution {
          return idx;
         }
     };
+
+    int main(){
+        vector<int> n = {4,6,2,7,89,1};
+        int t = 11;
+        Solution s = Solution();
+        vector<int> res = s.twoSum(n, t);
+        for(auto i: res){
+            cout << i << endl;
+        }
+        return 0;
+    }
