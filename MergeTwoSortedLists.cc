@@ -14,6 +14,8 @@ struct ListNode {
         ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+//This could be more space efficient
+//probably by creating a third list using comparison operators rather than pushing to a vector
 class Solution {
     public:
         ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
