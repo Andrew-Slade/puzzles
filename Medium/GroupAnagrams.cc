@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include <algorithm>
 using namespace std;
-
 class Solution {
     public:
         vector<vector<string>> groupAnagrams(vector<string>& strs) {
@@ -11,9 +10,6 @@ class Solution {
             unordered_map<string, vector<string>> res;
             string tmp;
             if(strs.size() < 2){
-                if(strs.size() == 0){
-                    return result;
-                }
                 for(auto &u : strs){
                     res[u].push_back(u);
                 }
@@ -21,11 +17,11 @@ class Solution {
             for(size_t i = 0; i < strs.size(); ++i){
                 tmp = strs[i];
                 sort(tmp.begin(), tmp.end());
-                if(i == 0){ //needs to be here for weird cases like "", ""
+                if(i != 0){ //needs to be here for weird cases like "", ""
+                    res[tmp].push_back(strs[i]);
+                }else{
                     vector<string> s = {strs[i]};
                     res[tmp] = s;
-                }else{
-                    res[tmp].push_back(strs[i]);
                 }
             }
             for(auto &i : res){
@@ -35,4 +31,5 @@ class Solution {
             }
             return result;
         }
-    };
+};
+        
