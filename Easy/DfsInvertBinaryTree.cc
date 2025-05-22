@@ -1,5 +1,4 @@
-#include <vector>
-#include <iostream>
+#include <stack>
 using namespace std;
 
 struct TreeNode {
@@ -11,33 +10,37 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+#include <vector>
+#include <iostream>
+using namespace std;
+
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-        TreeNode* bfs = root;
-        TreeNode* tmp;
-        vector<TreeNode*> stack;
+        TreeNode* d = root;
+        TreeNode* t;
+        stack<TreeNode*> s;
         while(true){
-            if(bfs == nullptr){
+            if(d == nullptr){
                 break;
             }
-            if(bfs->right != nullptr){
-                stack.push_back(bfs->right);
+            cout << d->val << endl;
+            if(d->right != nullptr){
+                s.push(d->right);
             }
-            if( bfs->left != nullptr){
-                stack.push_back(bfs->left);
+            if( d->left != nullptr){
+                s.push(d->left);
             }
-            tmp = bfs->right;
-            bfs->right = bfs->left;
-            bfs->left = tmp;
-            if(stack.size() > 0){
-                bfs = stack.back();
+            t = d->right;
+            d->right = d->left;
+            d->left = t;
+            if(s.size() > 0){
+                d = s.top();
             }else{
                 break;
             }
-            stack.pop_back();
+            s.pop();
         }
-        stack.clear();
         return root;
     }
 };

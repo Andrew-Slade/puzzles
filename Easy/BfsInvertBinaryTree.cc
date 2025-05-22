@@ -1,5 +1,5 @@
-#include <vector>
-#include <iostream>
+
+#include <queue>
 using namespace std;
 
 struct TreeNode {
@@ -10,34 +10,33 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-
+ 
 class Solution {
-public:
-    TreeNode* invertTree(TreeNode* root) {
-        TreeNode* bfs = root;
-        TreeNode* tmp;
-        vector<TreeNode*> stack;
-        while(true){
-            if(bfs == nullptr){
-                break;
+    public:
+        TreeNode* invertTree(TreeNode* root) {
+            TreeNode* b = root;
+            TreeNode* t;
+            queue<TreeNode*> q;
+            while(true){
+                if(b == nullptr){
+                    break;
+                }
+                if( b->left != nullptr){
+                    q.push(b->left);
+                }
+                if(b->right != nullptr){
+                    q.push(b->right);
+                }
+                t = b->right;
+                b->right = b->left;
+                b->left = t;
+                if(q.size() > 0){
+                    b = q.front();
+                }else{
+                    break;
+                }
+                q.pop();
             }
-            if(bfs->right != nullptr){
-                stack.push_back(bfs->right);
-            }
-            if( bfs->left != nullptr){
-                stack.push_back(bfs->left);
-            }
-            tmp = bfs->right;
-            bfs->right = bfs->left;
-            bfs->left = tmp;
-            if(stack.size() > 0){
-                bfs = stack.back();
-            }else{
-                break;
-            }
-            stack.pop_back();
+            return root;
         }
-        stack.clear();
-        return root;
-    }
 };
